@@ -1,4 +1,5 @@
 import express from 'express';
 const routers = express.Router();
-// routers.use()
+import orderRoute from './orderRoute.mjs';
+routers.use('/orders', orderRoute);
 export default routers;

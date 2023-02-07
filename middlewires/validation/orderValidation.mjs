@@ -1,13 +1,34 @@
 import Joi from 'joi';
 
-const isValidNewOrder = Joi.object({
+const orderSchema = Joi.object({
   order_no: Joi.string().required(),
   order_date: Joi.date().required(),
   quantity: Joi.number().required(),
   price: Joi.number().required(),
   discount: Joi.number(),
+  delivery_date: Joi.date().required(),
   status: Joi.string().allow('PROCESSING', 'ALTER', 'COMPLETED', 'DELIVERED'),
   delivery_details: Joi.string().allow(''),
-  delivery_date: Joi.date().required(),
   notes: Joi.string().allow(''),
 }).required();
+
+export default {
+  isValidOrder: async (req, res, next) => {
+    try {
+      const { error, value } = orderSchema.validate(req.body, {
+        abortEarly: false,
+      });
+      if (!error) {
+        req.joiBody = value;
+        return next();
+      }
+      const errors = error?.details?.reduce?.((a, { context, message }) => {
+        a[context.key] = message?.replace(/"/g, '');
+        return a;
+      }, {});
+      return res.status(400).json({ errors });
+    } catch (e) {
+      next({ message: e.message });
+    }
+  },
+};
