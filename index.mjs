@@ -5,9 +5,14 @@ import { createServer } from 'http';
 import db from './config/db.mjs';
 import error from './middlewires/error/error.mjs';
 import routers from './routes/index.mjs';
+import morgan from 'morgan';
 const app = express();
 
-const middleware = [express.json(), express.urlencoded({ extended: true })];
+const middleware = [
+  express.json(),
+  express.urlencoded({ extended: true }),
+  morgan('dev'),
+];
 app.use(middleware);
 app.use('/api/v1/', routers);
 

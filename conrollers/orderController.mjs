@@ -1,6 +1,5 @@
 import { isValidObjectId } from 'mongoose';
 import orderServices from '../services/orderServices.mjs';
-
 export default {
   allOrders: async (req, res) => {
     try {
@@ -16,10 +15,12 @@ export default {
       const doesExist = await orderServices.findingOrder(
         'single',
         {
-          order_id: joiBody?.order_id,
+          order_no: joiBody?.order_no,
         },
         '_id'
       );
+      console.log(doesExist);
+
       if (doesExist)
         return res.status(400).json({ message: `Order no already exists` });
       const saved = await orderServices.newOrder(joiBody);

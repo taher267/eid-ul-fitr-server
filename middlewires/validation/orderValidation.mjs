@@ -6,10 +6,12 @@ const orderSchema = Joi.object({
   quantity: Joi.number().required(),
   price: Joi.number().required(),
   discount: Joi.number(),
+  due: Joi.number(),
   delivery_date: Joi.date().required(),
-  status: Joi.string().allow('PROCESSING', 'ALTER', 'COMPLETED', 'DELIVERED'),
-  delivery_details: Joi.string().allow(''),
-  notes: Joi.string().allow(''),
+  status: Joi.string().valid('PROCESSING', 'ALTER', 'COMPLETED', 'DELIVERED'),
+  order_type: Joi.string().required().valid('READYMADE', 'TAILORS'),
+  delivery_details: Joi.string(),
+  notes: Joi.string(),
 }).required();
 
 export default {
