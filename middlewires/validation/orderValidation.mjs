@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 const orderSchema = Joi.object({
-  order_no: Joi.string().required(),
+  order_no: Joi.string().trim().required(),
   order_date: Joi.date().required(),
   quantity: Joi.number().required(),
   price: Joi.number().required(),
@@ -10,8 +10,8 @@ const orderSchema = Joi.object({
   delivery_date: Joi.date().required(),
   status: Joi.string().valid('PROCESSING', 'ALTER', 'COMPLETED', 'DELIVERED'),
   order_type: Joi.string().required().valid('READYMADE', 'TAILORS'),
-  delivery_details: Joi.string(),
-  notes: Joi.string(),
+  delivery_details: Joi.string().trim(),
+  notes: Joi.string().trim(),
 }).required();
 
 export default {

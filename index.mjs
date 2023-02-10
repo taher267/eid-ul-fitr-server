@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config({ path: './config/.env' });
 import express from 'express';
+import cors from 'cors';
 import { createServer } from 'http';
 import db from './config/db.mjs';
 import error from './middlewires/error/error.mjs';
@@ -9,6 +10,7 @@ import morgan from 'morgan';
 const app = express();
 
 const middleware = [
+  cors(),
   express.json(),
   express.urlencoded({ extended: true }),
   morgan('dev'),

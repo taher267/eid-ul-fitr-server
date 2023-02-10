@@ -12,6 +12,7 @@ export default {
   createOrder: async (req, res) => {
     try {
       const { joiBody } = req;
+      // console.log(joiBody);
       const doesExist = await orderServices.findingOrder(
         'single',
         {
@@ -19,10 +20,15 @@ export default {
         },
         '_id'
       );
-      console.log(doesExist);
+      // console.log(doesExist);
 
       if (doesExist)
-        return res.status(400).json({ message: `Order no already exists` });
+        return res.status(400).json({
+          message: `Fail to crate order`,
+          errors: {
+            order_no: 'Order no already exists',
+          },
+        });
       const saved = await orderServices.newOrder(joiBody);
       res.json(saved);
     } catch (e) {
