@@ -10,7 +10,7 @@ const orderSchema = Joi.object({
   delivery_date: Joi.date().required(),
   status: Joi.string()
     .required()
-    .valid('PROCESSING', 'ALTER', 'COMPLETED', 'DELIVERED'),
+    .valid('PROCESSING', 'ALTER', 'COMPLETED', 'DELIVERED', 'TRAIL', 'RETURN'),
   order_type: Joi.string().required().valid('READYMADE', 'TAILORS'),
   delivery_details: Joi.string().trim(),
   notes: Joi.string().trim(),
