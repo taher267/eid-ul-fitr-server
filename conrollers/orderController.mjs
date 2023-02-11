@@ -45,7 +45,6 @@ export default {
           message: `Invalid query id!`,
         });
       const single = await orderServices.findingOrder('_id', id);
-      console.log(single);
       res.json(single);
     } catch (e) {
       console.log(e);
