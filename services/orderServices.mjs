@@ -2,7 +2,7 @@ import Order from '../models/Order.mjs';
 
 export default {
   findingOrder: (key, value, select) => {
-    if (key === '_id') return Order.findById(key).select(select).exec();
+    if (key === '_id') return Order.findById(value).select(select);
     if (key === 'single') return Order.findOne(value).select(select).exec();
     return Order.find(value).select(select).exec();
   },

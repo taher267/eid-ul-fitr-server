@@ -1,5 +1,6 @@
 import { isValidObjectId } from 'mongoose';
 import orderServices from '../services/orderServices.mjs';
+
 export default {
   allOrders: async (req, res) => {
     try {
@@ -44,8 +45,10 @@ export default {
           message: `Invalid query id!`,
         });
       const single = await orderServices.findingOrder('_id', id);
+      console.log(single);
       res.json(single);
     } catch (e) {
+      console.log(e);
       res.status(500).json({ message: e.message });
     }
   },
@@ -59,7 +62,9 @@ export default {
           message: `Invalid update id!`,
         });
       const { joiBody } = req;
-      const updated = await orderServices.updatingOrder(id, joiBody, '_id');
+      const updated = await orderServices.updatingOrder(id, joiBody, {
+        new: true,
+      });
       res.json(updated);
     } catch (e) {
       res.status(400).json({ message: e.message });
